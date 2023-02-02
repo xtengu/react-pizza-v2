@@ -5,10 +5,12 @@ import Categories from "../components/Categories";
 import PizzaBlock from "../components/PizzaBlock";
 import Skeleton from "../components/PizzaBlock/Skeleton";
 import Pagination from "../components/Pagination";
+import {SearchContext} from "../App";
 
-export const Home = ({searchValue}) => {
+export const Home = () => {
   // https://63bd637ad660062388a3f5d4.mockapi.io/items
 
+  const {searchValue, _} = React.useContext(SearchContext);
   const [items, setItems] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
   const [categoryId, setCategoryId] = React.useState(0);
