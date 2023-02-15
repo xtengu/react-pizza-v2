@@ -12,20 +12,21 @@ import { SearchContext } from '../App'
 
 export const Home = () => {
     const dispatch = useDispatch()
-    const { categoryId, sort , currentPage} = useSelector((state) => state.filter)
+    const { categoryId, sort, currentPage } = useSelector(
+        (state) => state.filter
+    )
 
     // https://63bd637ad660062388a3f5d4.mockapi.io/items
 
     const { searchValue } = React.useContext(SearchContext)
     const [items, setItems] = React.useState([])
     const [isLoading, setIsLoading] = React.useState(true)
-   
 
     const onChangeCategory = (id) => {
         dispatch(setCategoryId(id))
     }
 
-    const onChangePage = (number) =>{
+    const onChangePage = (number) => {
         dispatch(setCurrentPage(number))
     }
 
@@ -95,7 +96,10 @@ export const Home = () => {
             <div className='content__items'>
                 {isLoading ? skeletons : pizzas}
             </div>{' '}
-            <Pagination currentPage={currentPage} onChangePage={onChangePage} />
+            <Pagination
+                currentPage={currentPage}
+                onChangePage={onChangePage}
+            />
         </div>
     )
 }

@@ -1,46 +1,46 @@
-import React from "react";
+import React from 'react'
 
-import Header from "./components/Header";
-import Home from "./pages/Home";
-import {Routes, Route} from "react-router-dom";
-import NotFound from "./pages/NotFound";
-import Cart from "./pages/Cart";
+import Header from './components/Header'
+import Home from './pages/Home'
+import { Routes, Route } from 'react-router-dom'
+import NotFound from './pages/NotFound'
+import Cart from './pages/Cart'
 
 // import pizzas from "./assets/pizzas.json";
 
-import "./scss/app.scss";
+import './scss/app.scss'
 
-export const SearchContext = React.createContext();
+export const SearchContext = React.createContext()
 
 function App() {
-  const [searchValue, setSearchValue] = React.useState("");
+    const [searchValue, setSearchValue] = React.useState('')
 
-  return (
-    <div className='wrapper'>
-      <SearchContext.Provider value={{searchValue, setSearchValue}}>
-        <Header />
-        {/* {isLoading && " Loading..."} */}
+    return (
+        <div className='wrapper'>
+            <SearchContext.Provider value={{ searchValue, setSearchValue }}>
+                <Header />
+                {/* {isLoading && " Loading..."} */}
 
-        <div className='content'>
-          <Routes>
-            <Route
-              path='/'
-              element={<Home searchValue={searchValue} />}
-            />
+                <div className='content'>
+                    <Routes>
+                        <Route
+                            path='/'
+                            element={<Home searchValue={searchValue} />}
+                        />
 
-            <Route
-              path='/cart'
-              element={<Cart />}
-            />
+                        <Route
+                            path='/cart'
+                            element={<Cart />}
+                        />
 
-            <Route
-              path='*'
-              element={<NotFound />}
-            />
-          </Routes>
+                        <Route
+                            path='*'
+                            element={<NotFound />}
+                        />
+                    </Routes>
+                </div>
+            </SearchContext.Provider>
         </div>
-      </SearchContext.Provider>
-    </div>
-  );
+    )
 }
-export default App;
+export default App
