@@ -10,8 +10,8 @@ import Skeleton from '../components/PizzaBlock/Skeleton'
 import Pagination from '../components/Pagination'
 import { SearchContext } from '../App'
 import Sort from '../components/Sort'
-import { setCategoryId, setCurrentPage } from '../redux/slices/filterSlices'
-import { fetchPizzas  } from '../redux/slices/pizzaSlice'
+import { selectFilter, setCategoryId, setCurrentPage } from '../redux/slices/filterSlices'
+import { fetchPizzas, selectPizzaData  } from '../redux/slices/pizzaSlice'
 
 
 
@@ -23,16 +23,16 @@ export const Home = () => {
     const isMounted = React.useRef(false)
   
 
-    const {items,status} = useSelector((state)=>state.pizza)
-    const { categoryId, sort, currentPage } = useSelector(
-        (state) => state.filter
+    const {items,status} = useSelector(selectPizzaData)
+    const { categoryId, sort, currentPage ,searchValue} = useSelector(
+       selectFilter
     )
  
 
 
     // https://63bd637ad660062388a3f5d4.mockapi.io/items
 
-    const { searchValue } = React.useContext(SearchContext)
+ 
 
  
 
