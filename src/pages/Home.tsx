@@ -19,7 +19,7 @@ import {
 import { fetchPizzas, selectPizzaData } from '../redux/slices/pizzaSlice'
 
 
-export const Home = () => {
+export const Home:React.FC = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const isSearch = React.useRef(false)
@@ -31,12 +31,12 @@ export const Home = () => {
 
     // https://63bd637ad660062388a3f5d4.mockapi.io/items
 
-    const onChangeCategory = (id) => {
-        dispatch(setCategoryId(id))
+    const onChangeCategory = (idx:number) => {
+        dispatch(setCategoryId(idx))
     }
 
-    const onChangePage = (number) => {
-        dispatch(setCurrentPage(number))
+    const onChangePage = (page:number) => {
+        dispatch(setCurrentPage(page))
     }
 
     React.useEffect(() => {
@@ -74,6 +74,7 @@ export const Home = () => {
         // }
 
         dispatch(
+            //@ts-ignore
             fetchPizzas({
                 sortBy,
                 order,
@@ -114,7 +115,7 @@ export const Home = () => {
         //   }
         //   return false;
         // })
-        .map((obj) => (
+        .map((obj:any) => (
             <Link
                 key={obj.id}
                 to={`/pizzas/${obj.id}`}

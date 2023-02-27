@@ -2,13 +2,12 @@ import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { selectSort, setSort } from '../redux/slices/filterSlices'
 
-function Sort() {
-    const dispatch = useDispatch()
-    const sort = useSelector(selectSort)
-    const sortRef = React.useRef()
+type SortItem = {
+    name: string;
+    sortProperty:string;
+}
 
-    const [open, setOpen] = React.useState(false)
-    const list = [
+   export  const sortList:SortItem[] = [
         { name: 'популярности (DESC)', sortProperty: 'rating' },
         { name: 'популярности (ASC)', sortProperty: '-rating' },
         { name: 'цене (DESC)', sortProperty: 'price' },
@@ -17,22 +16,30 @@ function Sort() {
         { name: 'алфавиту (ASC)', sortProperty: '-title' },
     ]
 
-    const onClickListItem = (obj) => {
+
+
+function Sort() {
+    const dispatch = useDispatch()
+    const sort = useSelector(selectSort)
+    const sortRef = React.useRef<HTMLDivElement>(null)
+
+    const [open, setOpen] = React.useState(false)
+
+    const onClickListItem = (obj:SortItem) => {
         dispatch(setSort(obj))
         setOpen(false)
     }
 
     React.useEffect(() => {
-        const handleClickOutside = (event) => {
+        const handleClickOutside = (event: any) => {
             if (!event.composedPath().includes(sortRef.current)) {
                 setOpen(false)
-              
             }
         }
         document.body.addEventListener('click', handleClickOutside)
 
         return () => {
-            console.log('sort unmount')
+           
             document.body.removeEventListener('click', handleClickOutside)
         }
     }, [])
@@ -62,7 +69,7 @@ function Sort() {
             {open && (
                 <div className='sort__popup'>
                     <ul>
-                        {list.map((obj, i) => (
+                        {sortList.map((obj, i) => (
                             <li
                                 key={i}
                                 onClick={() => onClickListItem(obj)}
@@ -70,8 +77,7 @@ function Sort() {
                                     sort.sortProperty === obj.sortProperty
                                         ? 'active'
                                         : ''
-                                }
-                            >
+                                }>
                                 {obj.name}
                             </li>
                         ))}
