@@ -3,20 +3,22 @@ import { useSelector, useDispatch } from 'react-redux'
 import { selectSort, setSort } from '../redux/slices/filterSlices'
 
 type SortItem = {
-    name: string;
-    sortProperty:string;
+    name: string
+    sortProperty: string
 }
 
-   export  const sortList:SortItem[] = [
-        { name: 'популярности (DESC)', sortProperty: 'rating' },
-        { name: 'популярности (ASC)', sortProperty: '-rating' },
-        { name: 'цене (DESC)', sortProperty: 'price' },
-        { name: 'цене (ASC)', sortProperty: '-price' },
-        { name: 'алфавиту (DESC)', sortProperty: 'title' },
-        { name: 'алфавиту (ASC)', sortProperty: '-title' },
-    ]
+type PopupClick = MouseEvent & {
+    path: Node[]
+}
 
-
+export const sortList: SortItem[] = [
+    { name: 'популярности (DESC)', sortProperty: 'rating' },
+    { name: 'популярности (ASC)', sortProperty: '-rating' },
+    { name: 'цене (DESC)', sortProperty: 'price' },
+    { name: 'цене (ASC)', sortProperty: '-price' },
+    { name: 'алфавиту (DESC)', sortProperty: 'title' },
+    { name: 'алфавиту (ASC)', sortProperty: '-title' },
+]
 
 function Sort() {
     const dispatch = useDispatch()
@@ -25,21 +27,24 @@ function Sort() {
 
     const [open, setOpen] = React.useState(false)
 
-    const onClickListItem = (obj:SortItem) => {
+    const onClickListItem = (obj: SortItem) => {
         dispatch(setSort(obj))
         setOpen(false)
     }
 
     React.useEffect(() => {
-        const handleClickOutside = (event: any) => {
-            if (!event.composedPath().includes(sortRef.current)) {
+        const handleClickOutside = (event: MouseEvent) => {
+            const _event = event as PopupClick
+            if (
+                sortRef.current &&
+                !_event.composedPath().includes(sortRef.current)
+            ) {
                 setOpen(false)
             }
         }
         document.body.addEventListener('click', handleClickOutside)
 
         return () => {
-           
             document.body.removeEventListener('click', handleClickOutside)
         }
     }, [])
@@ -77,7 +82,8 @@ function Sort() {
                                     sort.sortProperty === obj.sortProperty
                                         ? 'active'
                                         : ''
-                                }>
+                                }
+                            >
                                 {obj.name}
                             </li>
                         ))}
