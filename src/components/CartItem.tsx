@@ -1,32 +1,33 @@
 import React from 'react'
 
 import { useDispatch } from 'react-redux'
-import { addItem ,minusItem ,removeItem} from '../redux/slices/cartSlice'
+import { addItem, CartItem, minusItem, removeItem } from '../redux/slices/cartSlice'
 
 
 
 
 type CartItemProps = {
-    id:string,
-    title:string,
-    type:string,
-    size:number,
-    price:number,
-    count:number,
-    imageUrl:string,
+    id: string,
+    title: string,
+    type: string,
+    size: number,
+    price: number,
+    count: number,
+    imageUrl: string,
 }
 
 
 
 
-const CartItem:React.FC<CartItemProps> = ({ id, title, type, price,size, count, imageUrl }) => {
-   
+const CartItemBlock: React.FC<CartItemProps> = ({ id, title, type, price, size, count, imageUrl }) => {
+
     const dispatch = useDispatch()
     const onClickPlus = () => {
         dispatch(
             addItem({
                 id,
-            })
+
+            } as CartItem)
         )
     }
     const onClickMinus = () => {
@@ -35,10 +36,10 @@ const CartItem:React.FC<CartItemProps> = ({ id, title, type, price,size, count, 
         )
     }
 
-    const onClickRemove=()=>{
-      if(window.confirm('a you sure you want to remove ?')){
-        dispatch(removeItem(id))
-      }
+    const onClickRemove = () => {
+        if (window.confirm('a you sure you want to remove ?')) {
+            dispatch(removeItem(id))
+        }
 
     }
 
@@ -56,7 +57,7 @@ const CartItem:React.FC<CartItemProps> = ({ id, title, type, price,size, count, 
                 <p>{type}, {size} см.</p>
             </div>
             <div className='cart__item-count'>
-                <div onClick={onClickMinus}  className='button button--outline button--circle cart__item-count-minus'>
+                <div onClick={onClickMinus} className='button button--outline button--circle cart__item-count-minus'>
                     <svg
                         width='10'
                         height='10'
@@ -121,4 +122,4 @@ const CartItem:React.FC<CartItemProps> = ({ id, title, type, price,size, count, 
     )
 }
 
-export default CartItem
+export default CartItemBlock
