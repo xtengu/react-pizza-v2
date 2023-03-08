@@ -23,10 +23,10 @@ import { useAppDispatch } from '../redux/store'
 
 
 export const Home: React.FC = () => {
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
     const dispatch = useAppDispatch()
     // const isSearch = React.useRef(false)
-    const isMounted = React.useRef(false)
+    // const isMounted = React.useRef(false)
 
     const { items, status } = useSelector(selectPizzaData);
     const { categoryId, sort, currentPage, searchValue } =
@@ -34,9 +34,9 @@ export const Home: React.FC = () => {
 
     // https://63bd637ad660062388a3f5d4.mockapi.io/items
 
-    const onChangeCategory = (idx: number) => {
+    const onChangeCategory = React.useCallback((idx: number) => {
         dispatch(setCategoryId(idx))
-    }
+    }, [])
 
     const onChangePage = (page: number) => {
         dispatch(setCurrentPage(page))
@@ -186,7 +186,7 @@ export const Home: React.FC = () => {
         // })
         .map((obj: any) => (
 
-            <PizzaBlock {...obj} />
+            <PizzaBlock key={obj.id} {...obj} />
 
         ))
 
@@ -203,7 +203,7 @@ export const Home: React.FC = () => {
                     value={categoryId}
                     onChangeCategory={onChangeCategory}
                 />
-                <Sort />
+                <Sort value={sort} />
             </div>
             <h2 className='content__title'>Все пиццы</h2>{' '}
             {status === 'error' ? (
