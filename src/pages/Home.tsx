@@ -9,16 +9,14 @@ import PizzaBlock from '../components/PizzaBlock'
 import Skeleton from '../components/PizzaBlock/Skeleton'
 import Pagination from '../components/Pagination'
 
-import Sort, { sortList } from '../components/Sort'
+import Sort from '../components/Sort'
 
-import {
-    FilterSliceState,
-    selectFilter,
-    setCategoryId,
-    setCurrentPage,
-    setFilters,
-} from '../redux/slices/filterSlices'
-import { fetchPizzas, SearchPizzaParams, selectPizzaData } from '../redux/slices/pizzaSlice'
+
+
+import { setCategoryId, setCurrentPage } from '../redux/filter/slice'
+import { selectPizzaData } from '../redux/pizza/selectors'
+import { selectFilter } from '../redux/filter/selectors'
+import { fetchPizzas } from '../redux/pizza/asyncActions'
 import { useAppDispatch } from '../redux/store'
 
 
